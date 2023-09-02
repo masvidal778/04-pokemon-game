@@ -16,7 +16,7 @@ export default defineComponent({
 
   <h1>Qui és aquest Pokemon?</h1>
 
-  <PokemonPicture />
+  <PokemonPicture :pokemonId="10" :showPokemon="false" />
   <PokemonOptions />
 
 </template>
