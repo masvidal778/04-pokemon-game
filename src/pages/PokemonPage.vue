@@ -15,13 +15,17 @@ export default defineComponent({
   },
   data() {
     return {
-      pokemonArr: []
+      pokemonArr: [],
+      pokemon: null,
+      showPokemon: false
     }
   },
   methods: {
     async mixPokemonArray() {
       this.pokemonArr = await getPokemonOptions()
-      console.log(this.pokemonArr)
+
+      const rndInt = Math.floor( Math.random() * 4 )
+      this.pokemon = this.pokemonArr[rndInt]
     }
   },
   mounted() {
@@ -32,9 +36,14 @@ export default defineComponent({
 
 <template>
 
-  <h1>Qui és aquest Pokemon?</h1>
+  <h1 v-if="!pokemon">Esperi, sisplau...</h1>
 
-  <PokemonPicture :pokemonId="10" :showPokemon="false" />
-  <PokemonOptions :pokemons="pokemonArr"/>
+  <div v-else>
+    <h1>Qui és aquest Pokemon?</h1>
+
+    <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
+    <PokemonOptions :pokemons="pokemonArr"/>
+  </div>
+
 
 </template>
