@@ -12,6 +12,20 @@ export default defineComponent({
   components: {
     PokemonPicture,
     PokemonOptions
+  },
+  data() {
+    return {
+      pokemonArr: []
+    }
+  },
+  methods: {
+    async mixPokemonArray() {
+      this.pokemonArr = await getPokemonOptions()
+      console.log(this.pokemonArr)
+    }
+  },
+  mounted() {
+    this.mixPokemonArray()
   }
 })
 </script>
@@ -21,6 +35,6 @@ export default defineComponent({
   <h1>Qui és aquest Pokemon?</h1>
 
   <PokemonPicture :pokemonId="10" :showPokemon="false" />
-  <PokemonOptions />
+  <PokemonOptions :pokemons="pokemonArr"/>
 
 </template>
