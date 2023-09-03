@@ -25,7 +25,11 @@ export default defineComponent({
       this.pokemonArr = await getPokemonOptions()
 
       const rndInt = Math.floor( Math.random() * 4 )
-      this.pokemon = this.pokemonArr[rndInt]
+      this.pokemon = this.pokemonArr[rndInt]},
+    checkAnswer(pokemonId){
+
+        this.showPokemon = true
+
     }
   },
   mounted() {
@@ -41,8 +45,14 @@ export default defineComponent({
   <div v-else>
     <h1>Qui és aquest Pokemon?</h1>
 
-    <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
-    <PokemonOptions :pokemons="pokemonArr"/>
+    <PokemonPicture
+        :pokemonId="pokemon.id"
+        :showPokemon="showPokemon"
+    />
+    <PokemonOptions
+        :pokemons="pokemonArr"
+        @selectionPokemon="checkAnswer"
+    />
   </div>
 
 
