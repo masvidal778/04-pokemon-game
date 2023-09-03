@@ -17,19 +17,36 @@ export default defineComponent({
     return {
       pokemonArr: [],
       pokemon: null,
-      showPokemon: false
+      showPokemon: false,
+      showAnswer: false,
+      message: ''
     }
   },
   methods: {
     async mixPokemonArray() {
       this.pokemonArr = await getPokemonOptions()
 
-      const rndInt = Math.floor( Math.random() * 4 )
-      this.pokemon = this.pokemonArr[rndInt]},
-    checkAnswer(pokemonId){
+      const rndInt = Math.floor(Math.random() * 4)
+      this.pokemon = this.pokemonArr[rndInt]
+    },
+    checkAnswer(selectedId) {
 
-        this.showPokemon = true
+      this.showPokemon = true
+      this.showAnswer = true
 
+      if (selectedId === this.pokemon.id) {
+        this.message = `Correcte! És ${this.pokemon.name}`
+      } else {
+        this.message = `Ooops! Era ${this.pokemon.name}`
+      }
+    },
+    newGame(){
+      this.pokemonArr = []
+      this.showPokemon = false
+      this.showAnswer = false
+      this.pokemon = null
+
+      this.mixPokemonArray()
     }
   },
   mounted() {
@@ -53,6 +70,14 @@ export default defineComponent({
         :pokemons="pokemonArr"
         @selectionPokemon="checkAnswer"
     />
+
+    <template v-if="showAnswer">
+      <h2 class="fade-in">{{ message }}</h2>
+      <button @click="newGame">
+        Nou joc
+      </button>
+    </template>
+
   </div>
 
 
