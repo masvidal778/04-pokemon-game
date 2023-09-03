@@ -1,14 +1,15 @@
 <script>
-import {defineComponent} from 'vue'
+import {capitalize, defineComponent} from 'vue'
 
 export default defineComponent({
   name: "PokemonOptions",
+  methods: {capitalize},
   props: {
     pokemons: {
       type: Array,
       required: true,
     }
-  }
+  },
 })
 </script>
 
@@ -19,7 +20,7 @@ export default defineComponent({
         :key="pokemon.id"
         @click="$emit( 'selectionPokemon', pokemon.id )"
     >
-      {{ pokemon.name }}
+      {{ capitalize(pokemon.name) }}
     </li>
   </ul>
 </div>
